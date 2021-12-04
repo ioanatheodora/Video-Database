@@ -1,16 +1,17 @@
 package video;
 
-import entertainment.Season;
-import fileio.SerialInputData;
+import entertainment.*;
+import fileio.*;
+import net.sf.json.util.JSONUtils;
 
 import java.util.ArrayList;
 
-public final class Serial extends Video {
+public class Serial extends Video{
     private ArrayList<Season> seasons;
     private int numberOfSeasons;
     private double averageGrade;
 
-    public Serial(final SerialInputData serialInput, final int numberOfSeasons) {
+    public Serial(SerialInputData serialInput, int numberOfSeasons){
         super(serialInput);
         seasons = serialInput.getSeasons();
         this.numberOfSeasons = numberOfSeasons;
@@ -20,7 +21,7 @@ public final class Serial extends Video {
         return numberOfSeasons;
     }
 
-    public void setNumberOfSeasons(final int numberOfSeasons) {
+    public void setNumberOfSeasons(int numberOfSeasons) {
         this.numberOfSeasons = numberOfSeasons;
     }
 
@@ -28,7 +29,7 @@ public final class Serial extends Video {
         return seasons;
     }
 
-    public void setSeasons(final ArrayList<Season> seasons) {
+    public void setSeasons(ArrayList<Season> seasons) {
         this.seasons = seasons;
     }
 
@@ -36,25 +37,26 @@ public final class Serial extends Video {
         return averageGrade;
     }
 
-    public void setAverageGrade(final double averageGrade) {
+    public void setAverageGrade(double averageGrade) {
         this.averageGrade = averageGrade;
     }
 
-    public int calculateDuration() {
+    public int calculateDuration(){
         int duration = 0;
-        for (Season season : seasons) {
+        for(Season season : seasons){
             duration = duration + season.getDuration();
         }
         return duration;
     }
 
-    public void calculateAverageGrade() {
+    public void calculateAverageGrade(){
         averageGrade = 0;
-        for (Season season : seasons) {
+
+        for(Season season : seasons){
             season.calculateAverageRating();
             averageGrade += season.getAverageRating();
         }
-        averageGrade = (averageGrade / numberOfSeasons);
+        averageGrade = (averageGrade/numberOfSeasons);
     }
 
 }

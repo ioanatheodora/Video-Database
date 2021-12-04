@@ -3,10 +3,10 @@ package fileio;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public final class Output {
+public class Output {
     private String message;
 
-    public Output(final String message) {
+    public Output(String message) {
         this.message = message;
     }
 
@@ -14,14 +14,15 @@ public final class Output {
         return message;
     }
 
-    public void setMessage(final String message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 
-    public void addResult(final int id, final JSONArray jsonArray) {
+    public void addResult(int id, JSONArray jsonArray){
         JSONObject object = new JSONObject();
         object.put("id", id);
         object.put("message", message);
         jsonArray.add(object);
     }
+
 }

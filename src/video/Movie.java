@@ -1,15 +1,17 @@
 package video;
 
-import fileio.MovieInputData;
+import database.Database;
+import fileio.*;
+import user.User;
 
 import java.util.ArrayList;
 
-public final class Movie extends Video {
+public class Movie extends Video{
     final private int duration;
     private ArrayList<Double> ratings = new ArrayList<>();
     private double averageGrade;
 
-    public Movie(final MovieInputData movieInput) {
+    public Movie(MovieInputData movieInput){
         super(movieInput);
         duration = movieInput.getDuration();
     }
@@ -18,7 +20,7 @@ public final class Movie extends Video {
         return ratings;
     }
 
-    public void setRatings(final ArrayList<Double> ratings) {
+    public void setRatings(ArrayList<Double> ratings) {
         this.ratings = ratings;
     }
 
@@ -26,7 +28,7 @@ public final class Movie extends Video {
         return duration;
     }
 
-    public void addRating(final double rating) {
+    public void addRating(double rating){
         ratings.add(rating);
     }
 
@@ -34,17 +36,17 @@ public final class Movie extends Video {
         return averageGrade;
     }
 
-    public void setAverageGrade(final double averageGrade) {
+    public void setAverageGrade(double averageGrade) {
         this.averageGrade = averageGrade;
     }
 
-    public void calculateAverageRating() {
+    public void calculateAverageRating(){
         averageGrade = 0;
-        if (!ratings.isEmpty()) {
-            for (double i : ratings) {
+        if(!ratings.isEmpty()){
+            for(double i :ratings){
                 averageGrade += i;
             }
-            averageGrade = averageGrade / ratings.size();
+            averageGrade = averageGrade/ratings.size();
         }
     }
 }

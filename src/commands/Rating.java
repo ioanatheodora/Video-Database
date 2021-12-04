@@ -39,10 +39,10 @@ public final class Rating {
 
         if (user.getHistory().containsKey(movie)) {
 //            check whether the movie is viewed
-            if (user.getMovieRatings() != null) {
-                if (!user.getMovieRatings().containsKey(movie)) {
+            if (user.getMratings() != null) {
+                if (!user.getMratings().containsKey(movie)) {
 //                check whether the movie has already been rated
-                    user.getMovieRatings().put(movie, rating);
+                    user.getMratings().put(movie, rating);
                     message = "success -> " + movie + " was rated with " + rating
                             + " by " + user.getUsername();
                     user.setRatingsGiven(user.getRatingsGiven() + 1);
