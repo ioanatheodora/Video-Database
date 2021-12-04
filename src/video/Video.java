@@ -1,6 +1,8 @@
 package video;
 
-import fileio.ShowInput;
+import database.Database;
+import fileio.*;
+import user.User;
 
 import java.util.ArrayList;
 
@@ -12,7 +14,7 @@ public class Video {
     private int favorite = 0;
     private int views = 0;
 
-    public Video(final ShowInput showInput) {
+    public Video(ShowInput showInput){
         title = showInput.getTitle();
         year = showInput.getYear();
         cast = showInput.getCast();
@@ -39,7 +41,7 @@ public class Video {
         return favorite;
     }
 
-    public void setFavorite(final int favorite) {
+    public void setFavorite(int favorite) {
         this.favorite = favorite;
     }
 
@@ -47,7 +49,7 @@ public class Video {
         return views;
     }
 
-    public void setViews(final int views) {
+    public void setViews(int views) {
         this.views = views;
     }
 
