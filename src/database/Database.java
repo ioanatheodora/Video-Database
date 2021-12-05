@@ -105,6 +105,7 @@ public class Database {
 
     public void getViewsPerVideo(){
         for(Movie movie : movies){
+            movie.setViews(0);
             for(User user : users){
                 if(user.getHistory().containsKey(movie.getTitle())){
                     movie.setViews(movie.getViews() +
@@ -113,6 +114,7 @@ public class Database {
             }
         }
         for(Serial serial : serials){
+            serial.setViews(0);
             for(User user : users){
                 if(user.getHistory().containsKey(serial.getTitle())){
                     serial.setViews(serial.getViews() +

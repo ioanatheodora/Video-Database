@@ -1,5 +1,6 @@
 package commands;
 
+import actor.Actor;
 import common.Constants;
 import database.Database;
 import fileio.ActionInputData;
@@ -50,6 +51,27 @@ public final class Recommendation {
         // put data from sorted list to hashmap
         HashMap<String, Integer> temp = new LinkedHashMap<>();
         for (Map.Entry<String, Integer> aa : list) {
+            temp.put(aa.getKey(), aa.getValue());
+        }
+        return temp;
+    }
+
+    public static HashMap<String, Double> sortByValueD(final HashMap<String, Double> hm) {
+        // Create a list from elements of HashMap
+        List<Map.Entry<String, Double>> list =
+                new LinkedList<>(hm.entrySet());
+
+        // Sort the list
+        Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
+            public int compare(final Map.Entry<String, Double> o1,
+                               final Map.Entry<String, Double> o2) {
+                return Double.compare(o1.getValue(), o2.getValue());
+            }
+        });
+
+        // put data from sorted list to hashmap
+        HashMap<String, Double> temp = new LinkedHashMap<>();
+        for (Map.Entry<String, Double> aa : list) {
             temp.put(aa.getKey(), aa.getValue());
         }
         return temp;
@@ -149,18 +171,18 @@ public final class Recommendation {
 
 //        sort the hashmap depending on the name and then on the rating
         String message = "SearchRecommendation result: [";
-        List<Double> sorted = new ArrayList<>(sortMap.values());
-        Collections.sort(sorted);
+        LinkedHashMap<String, Double> sortedByName = new LinkedHashMap<>();
+        sortedByName.putAll(sortMap);
+        HashMap<String, Double> finalSort;
 
-        for (Map.Entry<String, Double> entry : sortMap.entrySet()) {
-            if (Double.compare(entry.getValue(), sorted.get(0)) == 0) {
-                message += entry.getKey() + ", ";
-            }
+        finalSort = sortByValueD(sortedByName);
+        for (Map.Entry<String, Double> entry : finalSort.entrySet()) {
+            message += entry.getKey() + ", ";
         }
 
         message = message.substring(0, message.length() - 2) + "]";
 
-        if (sorted.size() > 0) {
+        if (finalSort.size() > 0) {
             return message;
         } else {
             return "SearchRecommendation cannot be applied!";

@@ -7,9 +7,6 @@ import common.Constants;
 import database.Database;
 import fileio.ActionInputData;
 import fileio.Output;
-import user.User;
-
-import javax.swing.*;
 
 public class ComputeOneQuery {
     private ActionInputData actionInputData;
