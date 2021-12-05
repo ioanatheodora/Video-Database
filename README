@@ -1,38 +1,56 @@
-Object Oriented Programming Course
-Homework - VideosDB
+#POPA IOANA-THEODORA
+#323CD
 
-November 2021
+        VideosDB
 
-# Info
-https://ocw.cs.pub.ro/courses/poo-ca-cd/teme/tema
+#Packages and Classes
+    The packages i have created are:
+*compute, which contains the classes
+    *ComputeAll
+    *ComputeOneCommand
+    *ComputeOneQuery
+    *ComputeOneRecommendation
 
-# About the code
+    ComputeALl evaluates the action given and further creates one class for each type
+of action received.
 
-We provide the input tests, the logic that parses them and the checker that runs them.
+*commands, which contains the classes
+       *Favorite - solves the command "favorite" in the "addFavorite" method by finding
+the movie from the action input data, adding it to the user's favorite videos and
+incrementing the number of times the video has been set as favorite
+    *Rating - solves the command "rating" in one of the two methods "addSerialRating" or
+"addMovieRating" depending on the type of video it is received. Furthermore, each of the
+two methods finds the video given as input and adds the rating in the list of ratings of the
+video
+    *View - solves the command "view" in the method "viewVideo" by finding the specified
+video and incrementing the number of times it has been viewed
+    *ActorQuery - solves the queries of type "actor". The method doTheQuery() checks what kind
+of query will be further done and then calls one of the private methods inside the class.
+    *VideoQuery - solves the queries of type "video". As the ActorQuery, The method doTheQuery()
+checks what kind of query will be further done and then calls one of the private methods inside
+the class.
+    *UserQuery - solves the single query of type "user". The method doTheQuery() does the query
+by sorting the active users based on their name and further on their number of ratings.
+    *Recommendation - solves all the actions of type "Recommendation" by finding the right
+method to be called upon.
 
-* test_db - contains the tests in JSON format
-* src
-   * checker - the checker's sources including the checkstyle necessary files, not to be modified
-   * fileio - classes for parsing the input files, not to be modified
-   * common, utils
-        * contain utility classes with constants and static methods
-        * you can add your own functionality in the existing classes or add new classes as well
-   * actor
-        * contains an enum for the types of awards an actor can have - do not modify it
-        * you can add here your actor related classes
-   * entertainment
-        * contains an enum for the supported video genres - do not modify it
-        * class for representing a Season of a tv show - do not modify it
-        * you can add here your entertainment related classes
+*database, which contains the classes:
+    *AddToDatabase - adds the information to the database
+    *Database - contains the users, actors, movies and shows
 
-We encourage you to organize your implementation in packages based on the functionality their classes offer. Try to keep
-your code modular, readable and documented.
+*user, which contains the class:
+    *User - has fields for the username, user's history, subscription type, a list of favorite
+videos, a hashmap of movie ratings and a hashmap of show ratings and the number of ratings the
+user has given.
 
-# Testing
+*video, which contains the classes:
+    *Video - has fields for the title, the year it has been released year, a list of actors for
+the cast, a list of genres, the times it has been added in the users' favorite list and the times
+it has been viewed by the users.
+        *Movie - it inherites the class Video and has fields for the duration of the movie, a list
+of ratings received, and the average rating.
+        *Serial - it also inherites the class Video and has fields for the number of seasons, the
+average rating and a list of seasons.
 
-The Main class runs the checker on your implementation. Add the entry point to your implementation in it.
-
-Run Main to test your implementation from the IDE or from command line.
-
-Run the main method from Test class with the name of the input file from the command line and the result will be written
-to the out.txt file. Thus, you can compare this result with ref.
+*fileio
+    *Output - i added the class in order to compute the output and put it into the JSON object.
