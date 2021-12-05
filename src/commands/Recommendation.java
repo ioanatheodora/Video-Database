@@ -1,5 +1,6 @@
 package commands;
 
+import actor.Actor;
 import common.Constants;
 import database.Database;
 import fileio.ActionInputData;
@@ -48,13 +49,26 @@ public final class Recommendation {
         return temp;
     }
 
+<<<<<<< HEAD
     private static HashMap<String, Double> sortByValueD(final HashMap<String, Double> hm) {
+=======
+    public static HashMap<String, Double> sortByValueD(final HashMap<String, Double> hm) {
+>>>>>>> be30c4b7be12ef40ce9c1f0d92b9d017181fc0d0
         // Create a list from elements of HashMap
         List<Map.Entry<String, Double>> list =
                 new LinkedList<>(hm.entrySet());
 
         // Sort the list
+<<<<<<< HEAD
         list.sort(Comparator.comparingDouble(Map.Entry::getValue));
+=======
+        Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
+            public int compare(final Map.Entry<String, Double> o1,
+                               final Map.Entry<String, Double> o2) {
+                return Double.compare(o1.getValue(), o2.getValue());
+            }
+        });
+>>>>>>> be30c4b7be12ef40ce9c1f0d92b9d017181fc0d0
 
         // put data from sorted list to hashmap
         HashMap<String, Double> temp = new LinkedHashMap<>();
@@ -157,19 +171,33 @@ public final class Recommendation {
         }
 
 //        sort the hashmap depending on the name and then on the rating
+<<<<<<< HEAD
         StringBuilder message = new StringBuilder("SearchRecommendation result: [");
         LinkedHashMap<String, Double> sortedByName = new LinkedHashMap<>(sortMap);
+=======
+        String message = "SearchRecommendation result: [";
+        LinkedHashMap<String, Double> sortedByName = new LinkedHashMap<>();
+        sortedByName.putAll(sortMap);
+>>>>>>> be30c4b7be12ef40ce9c1f0d92b9d017181fc0d0
         HashMap<String, Double> finalSort;
 
         finalSort = sortByValueD(sortedByName);
         for (Map.Entry<String, Double> entry : finalSort.entrySet()) {
+<<<<<<< HEAD
             message.append(entry.getKey()).append(", ");
+=======
+            message += entry.getKey() + ", ";
+>>>>>>> be30c4b7be12ef40ce9c1f0d92b9d017181fc0d0
         }
 
         message = new StringBuilder(message.substring(0, message.length() - 2) + "]");
 
         if (finalSort.size() > 0) {
+<<<<<<< HEAD
             return message.toString();
+=======
+            return message;
+>>>>>>> be30c4b7be12ef40ce9c1f0d92b9d017181fc0d0
         } else {
             return "SearchRecommendation cannot be applied!";
 
