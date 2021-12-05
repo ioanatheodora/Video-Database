@@ -81,7 +81,8 @@ public final class Constants {
     public static final String MOST_VIEWED = "most_viewed";
     public static final String AVERAGE  = "average";
     public static final String STANDARD = "standard";
-    public static final String BESTUNSEEN = "best_unseen";
+    public static final String BEST_UNSEEN = "best_unseen";
     public static final String PREMIUM = "PREMIUM";
+    public static final Integer THREE = 3;
 
 }

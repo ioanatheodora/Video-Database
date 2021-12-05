@@ -9,7 +9,7 @@ import java.util.Map;
  * DO NOT MODIFY
  */
 public final class UserInputData {
-    public static boolean equals;
+    private static boolean equals;
     /**
      * user.User's username
      */

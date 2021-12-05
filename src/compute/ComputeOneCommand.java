@@ -8,11 +8,11 @@ import fileio.ActionInputData;
 import fileio.Output;
 import user.User;
 
-public final class ComputeOneCommand {
-    private User user;
-    private ActionInputData actionInputData;
-    private Database database;
-    private org.json.simple.JSONArray jsonArray;
+public class ComputeOneCommand {
+    private final User user;
+    private final ActionInputData actionInputData;
+    private final Database database;
+    private final org.json.simple.JSONArray jsonArray;
 
     public ComputeOneCommand(final User user, final ActionInputData actionInputData,
                              final Database database, final org.json.simple.JSONArray jsonArray) {
@@ -22,6 +22,10 @@ public final class ComputeOneCommand {
         this.jsonArray = jsonArray;
     }
 
+    /**
+     * Verifies what kind of command the action does and sends it further to
+     * one of the commands: Favorite, View, Rating
+     */
     public void compute() {
 
         if (actionInputData.getType().equals("favorite")) {
@@ -37,8 +41,8 @@ public final class ComputeOneCommand {
         }
 
         if (actionInputData.getType().equals("rating")) {
+            // the user rates a movie
             if (actionInputData.getSeasonNumber() == 0) {
-                // the user rates a movie
                 Rating rating = new Rating(user, actionInputData.getTitle(),
                         actionInputData.getGrade(), database);
                 Output output = new Output(rating.rateMovie());

@@ -8,10 +8,10 @@ import video.Serial;
 import java.util.Map;
 import java.util.Objects;
 
-public final class View {
+public class View {
     private final User user;
     private final String video;
-    private Database database;
+    private final Database database;
 
     public View(final User user, final String video, final Database database) {
         this.user = user;
@@ -19,6 +19,12 @@ public final class View {
         this.database = database;
     }
 
+    /**
+     * Does the command "view" and updates everytime the number of times the show / movie
+     * has been viewed, or adds the movie / show on the users history if it has not
+     * been previously seen
+     * @return a String message following the state of the command
+     */
     public String viewVideo() {
         String message = "";
         if (user.getHistory().containsKey(video)) {
@@ -26,8 +32,8 @@ public final class View {
                 if (Objects.equals(show.getKey(), video)) {
 //                if viewed, we change the number of times it has been viewed
                     show.setValue(show.getValue() + 1);
-                    message = "success -> " + video + " was viewed with total views of "
-                            + show.getValue();
+                    message = "success -> " + video
+                            + " was viewed with total views of " + show.getValue();
                 }
             }
         } else {

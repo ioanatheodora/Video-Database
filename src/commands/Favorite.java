@@ -8,13 +8,20 @@ import video.Video;
 import java.util.ArrayList;
 
 public final class Favorite {
-    private User user;
-    private String video;
+    private final User user;
+    private final String video;
 
     public Favorite(final User user, final String video) {
         this.user = user;
         this.video = video;
     }
+
+    /**
+     * Computes the favorite command and adds the video in the users favorite list
+     * @param movies user's favorite movies
+     * @param database contains users, actors, movies and shows
+     * @return a String - a message following the state of the command
+     */
 
     public String addFavorite(final ArrayList<String> movies, final Database database) {
         String message;

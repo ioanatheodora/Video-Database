@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public final class Rating {
-    private User user;
+    private final User user;
     private String movie;
     private String serial;
     private int season;
-    private double rating;
-    private Database database;
+    private final double rating;
+    private final Database database;
 
     public Rating(final User user, final String movie, final double rating,
                   final Database database) {
@@ -33,7 +33,11 @@ public final class Rating {
         this.database = database;
     }
 
-
+    /**
+     * rates the movie with the rating given by the user and adds
+     * the rating to the user's rating and the movie's ratings
+     * @return a String - message following the state of the command
+     */
     public String rateMovie() {
         String message = "";
 
@@ -62,12 +66,16 @@ public final class Rating {
         return message;
     }
 
+    /**
+     * rates the show with the rating given by the user and adds the rating
+     * to user's ratings and the show's ratings
+     * @return a String - message following the state of the command
+     */
     public String rateSerial() {
         String message = "";
 
         if (user.getHistory().containsKey(serial)) {
 //            check whether the serial has been seen
-            //cautam sezonul si vedem daca a fost deja rated
                 if (user.getSerialRating().containsKey(serial)) {
                     // verify whether it has ever been rated
                     for (Map.Entry<String, ArrayList<Double>> entry

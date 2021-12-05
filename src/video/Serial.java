@@ -1,13 +1,14 @@
 package video;
 
+
 import entertainment.Season;
 import fileio.SerialInputData;
 
 import java.util.ArrayList;
 
-public final class Serial extends Video {
+public class Serial extends Video {
     private ArrayList<Season> seasons;
-    private int numberOfSeasons;
+    private final int numberOfSeasons;
     private double averageGrade;
 
     public Serial(final SerialInputData serialInput, final int numberOfSeasons) {
@@ -16,30 +17,35 @@ public final class Serial extends Video {
         this.numberOfSeasons = numberOfSeasons;
     }
 
+    /**
+     * get the number of seasons
+     * @return int - number of seasons
+     */
     public int getNumberOfSeasons() {
         return numberOfSeasons;
     }
 
-    public void setNumberOfSeasons(final int numberOfSeasons) {
-        this.numberOfSeasons = numberOfSeasons;
-    }
-
+    /**
+     * get the array of seasons
+     * @return ArrayList - seasons
+     */
     public ArrayList<Season> getSeasons() {
         return seasons;
     }
 
-    public void setSeasons(final ArrayList<Season> seasons) {
-        this.seasons = seasons;
-    }
-
+    /**
+     * get the average grade of the show
+     * @return double - average grade of the show
+     */
     public double getAverageGrade() {
         return averageGrade;
     }
 
-    public void setAverageGrade(final double averageGrade) {
-        this.averageGrade = averageGrade;
-    }
-
+    /**
+     * calculates the total duration of the movie by adding the duration of
+     * every seasons
+     * @return int - total duration
+     */
     public int calculateDuration() {
         int duration = 0;
         for (Season season : seasons) {
@@ -48,8 +54,12 @@ public final class Serial extends Video {
         return duration;
     }
 
+    /**
+     * calculates the average grade by making the average of all the seasons
+     */
     public void calculateAverageGrade() {
         averageGrade = 0;
+
         for (Season season : seasons) {
             season.calculateAverageRating();
             averageGrade += season.getAverageRating();

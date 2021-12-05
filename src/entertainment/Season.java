@@ -44,18 +44,20 @@ public final class Season {
         this.ratings = ratings;
     }
 
+    public double getAverageRating() {
+        return averageRating;
+    }
+    /**
+     * adds the rating in the list of rating
+     * @param rating the rating given by the user
+     */
     public void addRating(final double rating) {
         ratings.add(rating);
     }
 
-    public double getAverageRating() {
-        return averageRating;
-    }
-
-    public void setAverageRating(final double averageRating) {
-        this.averageRating = averageRating;
-    }
-
+    /**
+     * calculates the average rating of the season
+     */
     public void calculateAverageRating() {
         averageRating = 0;
         if (!ratings.isEmpty()) {
