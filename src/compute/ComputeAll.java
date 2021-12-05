@@ -5,11 +5,8 @@ import database.AddToDatabase;
 import database.Database;
 import fileio.ActionInputData;
 import fileio.Input;
-import fileio.UserInputData;
-import org.json.JSONArray;
+
 import user.User;
-import video.Movie;
-import video.Serial;
 
 public class ComputeAll {
     Input input;

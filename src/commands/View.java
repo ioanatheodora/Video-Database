@@ -1,13 +1,10 @@
 package commands;
 
 import database.Database;
-import org.json.simple.JSONArray;
 import user.User;
 import video.Movie;
 import video.Serial;
-import video.Video;
 
-import javax.xml.crypto.Data;
 import java.util.Map;
 import java.util.Objects;
 
@@ -30,7 +27,6 @@ public class View {
 //                if viewed, we change the number of times it has been viewed
                     show.setValue(show.getValue() + 1);
                     message = "success -> " + video + " was viewed with total views of " + show.getValue();
-
                 }
             }
         } else {

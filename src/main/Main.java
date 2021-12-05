@@ -4,12 +4,11 @@ import checker.Checker;
 import checker.Checkstyle;
 import common.Constants;
 import compute.ComputeAll;
-import database.Database;
+
 import fileio.Input;
 import fileio.InputLoader;
 import fileio.Writer;
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import java.io.File;
 import java.io.IOException;

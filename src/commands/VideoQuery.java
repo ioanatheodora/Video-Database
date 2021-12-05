@@ -1,16 +1,12 @@
 package commands;
 
-import actor.Actor;
 import common.Constants;
 import database.Database;
 import fileio.ActionInputData;
 import video.Movie;
 import video.Serial;
-import video.Video;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -287,13 +283,10 @@ public class VideoQuery {
                                         Database database, int N){
         ArrayList<Serial> viewed = new ArrayList<>();
 
-        System.out.println("----------" + actionInputData.getActionId() + "----------");
-
         for(Serial serial : database.getSerials()){
             if(checkFilters(serial, actionInputData.getFilters())
                     && serial.getViews() != 0) {
                 viewed.add(serial);
-                System.out.println(serial.getTitle() + "  " + serial.getViews() );
             }
         }
         sortShowTitle(viewed, actionInputData.getSortType());
@@ -325,10 +318,13 @@ public class VideoQuery {
         ArrayList<Serial> rating = new ArrayList<>();
 
         for(Serial serial : database.getSerials()){
+            serial.calculateAverageGrade();
             if(checkFilters(serial, actionInputData.getFilters())
                     && serial.getAverageGrade() != 0)
                 rating.add(serial);
+
         }
+        
         sortShowTitle(rating, actionInputData.getSortType());
         if(actionInputData.getSortType().equals(Constants.DESC)){
             rating.sort(new Comparator<Serial>() {
