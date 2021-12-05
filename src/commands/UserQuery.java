@@ -10,36 +10,32 @@ import java.util.Comparator;
 
 public final class UserQuery {
     private String toString(final ArrayList<User> users) {
-        String array = "[";
+        StringBuilder array = new StringBuilder("[");
         for (int i = 0; i < users.size(); i++) {
             if (i != users.size() - 1) {
-                array = array + users.get(i).getUsername() + ", ";
+                array.append(users.get(i).getUsername()).append(", ");
             } else {
-                array = array + users.get(i).getUsername();
+                array.append(users.get(i).getUsername());
             }
         }
-        array = array + "]";
-        return array;
+        array.append("]");
+        return array.toString();
     }
 
     private void sortUsersName(final ArrayList<User> users, final String criteria) {
         if (criteria.equals(Constants.ASC)) {
-            users.sort(new Comparator<User>() {
-                @Override
-                public int compare(final User o1, final User o2) {
-                    return o1.getUsername().compareTo(o2.getUsername());
-                }
-            });
+            users.sort(Comparator.comparing(User::getUsername));
         } else {
-            users.sort(new Comparator<User>() {
-                @Override
-                public int compare(final User o1, final User o2) {
-                    return o2.getUsername().compareTo(o1.getUsername());
-                }
-            });
+            users.sort((o1, o2) -> o2.getUsername().compareTo(o1.getUsername()));
         }
     }
 
+    /**
+     * Does the User Query
+     * @param actionInputData input data of the action
+     * @param database contains users, actors, movies and shows
+     * @return a String - message following the state of the query
+     */
     public String doTheQuery(final ActionInputData actionInputData, final Database database) {
         ArrayList<User> active = new ArrayList<>();
         int number  = actionInputData.getNumber();
@@ -53,23 +49,13 @@ public final class UserQuery {
        sortUsersName(active, actionInputData.getSortType());
 
        if (actionInputData.getSortType().equals(Constants.DESC)) {
-                active.sort(new Comparator<User>() {
-                    @Override
-                    public int compare(final User o1, final User o2) {
-                        return o2.getRatingsGiven() - o1.getRatingsGiven();
-                    }
-                });
+                active.sort((o1, o2) -> o2.getRatingsGiven() - o1.getRatingsGiven());
             } else {
-                active.sort(new Comparator<User>() {
-                    @Override
-                    public int compare(final User o1, final User o2) {
-                        return o1.getRatingsGiven() - o2.getRatingsGiven();
-                    }
-                });
+                active.sort(Comparator.comparingInt(User::getRatingsGiven));
             }
-            for (int i = active.size() - 1; i >= number; i--) {
-                active.remove(i);
-            }
+        if (active.size() > number) {
+            active.subList(number, active.size()).clear();
+        }
             return "Query result: " + toString(active);
         }
     }

@@ -44,21 +44,23 @@ public final class Season {
         this.ratings = ratings;
     }
 
-    public void addRating(double rating){
-        ratings.add(rating);
-    }
-
     public double getAverageRating() {
         return averageRating;
     }
-
-    public void setAverageRating(double averageRating) {
-        this.averageRating = averageRating;
+    /**
+     * adds the rating in the list of rating
+     * @param rating the rating given by the user
+     */
+    public void addRating(final double rating) {
+        ratings.add(rating);
     }
 
-    public void calculateAverageRating(){
+    /**
+     * calculates the average rating of the season
+     */
+    public void calculateAverageRating() {
         averageRating = 0;
-        if(!ratings.isEmpty()) {
+        if (!ratings.isEmpty()) {
             for (double i : ratings) {
                 averageRating += i;
             }

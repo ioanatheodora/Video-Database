@@ -4,21 +4,18 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class Output {
-    private String message;
+    private final String message;
 
-    public Output(String message) {
+    public Output(final String message) {
         this.message = message;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void addResult(int id, JSONArray jsonArray){
+    /**
+     * Adds the String result to the JSON Object
+     * @param id the id of the action
+     * @param jsonArray the jsonArray
+     */
+    public void addResult(final int id, final JSONArray jsonArray) {
         JSONObject object = new JSONObject();
         object.put("id", id);
         object.put("message", message);

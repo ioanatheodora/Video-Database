@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public final class Actor {
-    final private String name;
-    final private String careerDescription;
-    final private ArrayList<String> filmography;
-    final private Map<ActorsAwards, Integer> awards;
-    private int noAwards;
+    private final String name;
+    private final String careerDescription;
+    private final ArrayList<String> filmography;
+    private final Map<ActorsAwards, Integer> awards;
+    private final int noAwards;
     private double averageGrade;
 
     public Actor(final ActorInputData actorInputData) {
@@ -44,10 +44,6 @@ public final class Actor {
         return noAwards;
     }
 
-    public void setNoAwards(final int noAwards) {
-        this.noAwards = noAwards;
-    }
-
     public double getAverageGrade() {
         return averageGrade;
     }
@@ -56,6 +52,11 @@ public final class Actor {
         this.averageGrade = averageGrade;
     }
 
+    /**
+     * calculates the number of awards for each actor
+     * @param actorInputData
+     * @return
+     */
     private int calculateNoAwards(final ActorInputData actorInputData) {
         int numOfAwards = 0;
         for (Map.Entry<ActorsAwards, Integer> entry : actorInputData.getAwards().entrySet()) {
@@ -64,6 +65,11 @@ public final class Actor {
         return numOfAwards;
     }
 
+    /**
+     * Calculates the average grade for each actor based on the ratings
+     * previously given
+     * @param database
+     */
     public void getAverageGradeActor(final Database database) {
         averageGrade = 0;
         int number = 0;

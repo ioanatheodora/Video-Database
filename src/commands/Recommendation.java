@@ -1,6 +1,5 @@
 package commands;
 
-import actor.Actor;
 import common.Constants;
 import database.Database;
 import fileio.ActionInputData;
@@ -8,8 +7,6 @@ import user.User;
 import video.Movie;
 import video.Serial;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -19,8 +16,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public final class Recommendation {
-    private Database database;
-    private ActionInputData actionInputData;
+    private final Database database;
+    private final ActionInputData actionInputData;
 
     public Recommendation(final ActionInputData actionInputData, final Database database) {
         this.actionInputData = actionInputData;
@@ -35,18 +32,13 @@ public final class Recommendation {
         return video.getGenres().contains(genre);
     }
 
-    public static HashMap<String, Integer> sortByValue(final HashMap<String, Integer> hm) {
+    private static HashMap<String, Integer> sortByValue(final HashMap<String, Integer> hm) {
         // Create a list from elements of HashMap
         List<Map.Entry<String, Integer>> list =
                 new LinkedList<>(hm.entrySet());
 
         // Sort the list
-        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
-            public int compare(final Map.Entry<String, Integer> o1,
-                               final Map.Entry<String, Integer> o2) {
-                return (o2.getValue()).compareTo(o1.getValue());
-            }
-        });
+        list.sort((o1, o2) -> (o2.getValue()).compareTo(o1.getValue()));
 
         // put data from sorted list to hashmap
         HashMap<String, Integer> temp = new LinkedHashMap<>();
@@ -56,18 +48,13 @@ public final class Recommendation {
         return temp;
     }
 
-    public static HashMap<String, Double> sortByValueD(final HashMap<String, Double> hm) {
+    private static HashMap<String, Double> sortByValueD(final HashMap<String, Double> hm) {
         // Create a list from elements of HashMap
         List<Map.Entry<String, Double>> list =
                 new LinkedList<>(hm.entrySet());
 
         // Sort the list
-        Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
-            public int compare(final Map.Entry<String, Double> o1,
-                               final Map.Entry<String, Double> o2) {
-                return Double.compare(o1.getValue(), o2.getValue());
-            }
-        });
+        list.sort(Comparator.comparingDouble(Map.Entry::getValue));
 
         // put data from sorted list to hashmap
         HashMap<String, Double> temp = new LinkedHashMap<>();
@@ -170,20 +157,19 @@ public final class Recommendation {
         }
 
 //        sort the hashmap depending on the name and then on the rating
-        String message = "SearchRecommendation result: [";
-        LinkedHashMap<String, Double> sortedByName = new LinkedHashMap<>();
-        sortedByName.putAll(sortMap);
+        StringBuilder message = new StringBuilder("SearchRecommendation result: [");
+        LinkedHashMap<String, Double> sortedByName = new LinkedHashMap<>(sortMap);
         HashMap<String, Double> finalSort;
 
         finalSort = sortByValueD(sortedByName);
         for (Map.Entry<String, Double> entry : finalSort.entrySet()) {
-            message += entry.getKey() + ", ";
+            message.append(entry.getKey()).append(", ");
         }
 
-        message = message.substring(0, message.length() - 2) + "]";
+        message = new StringBuilder(message.substring(0, message.length() - 2) + "]");
 
         if (finalSort.size() > 0) {
-            return message;
+            return message.toString();
         } else {
             return "SearchRecommendation cannot be applied!";
 
@@ -212,6 +198,10 @@ public final class Recommendation {
         return "PopularRecommendation cannot be applied!";
     }
 
+    /**
+     * computes the recommendation based on the criteria given
+     * @return a String - message following the state of the recommendation
+     */
     public String doTheRecommendation() {
         for (User find : database.getUsers()) {
             if (find.getUsername().equals(actionInputData.getUsername())) {
@@ -219,7 +209,7 @@ public final class Recommendation {
                     return standard(find);
                 }
 
-                if (actionInputData.getType().equals(Constants.BESTUNSEEN)) {
+                if (actionInputData.getType().equals(Constants.BEST_UNSEEN)) {
                     return unseen(find);
                 }
                 if (find.getSubscriptionType().equals(Constants.PREMIUM)

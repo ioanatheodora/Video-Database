@@ -27,19 +27,10 @@ public final class ActorQuery {
 
     private void sortActorsName(final ArrayList<Actor> actorsUnsorted, final String criteria) {
         if (criteria.equals(Constants.ASC)) {
-            actorsUnsorted.sort(new Comparator<Actor>() {
-                @Override
-                public int compare(final Actor o1, final Actor o2) {
-                    return o1.getName().compareTo(o2.getName());
-                }
-            });
+            actorsUnsorted.sort(Comparator.comparing(Actor::getName));
         } else {
-            actorsUnsorted.sort(new Comparator<Actor>() {
-                @Override
-                public int compare(final Actor o1, final Actor o2) {
-                    return o2.getName().compareTo(o1.getName());
-                }
-            });
+            actorsUnsorted.sort((final Actor o1, final Actor o2)
+                    -> o2.getName().compareTo(o1.getName()));
         }
     }
 
@@ -73,14 +64,14 @@ public final class ActorQuery {
         return toString(filteredActors);
     }
 
-    private String awardsQuery(final ActionInputData actionInputData, final Database database) {
+    private String awardsQuery(final ActionInputData actionInputData) {
         ArrayList<Actor> awardedActors = new ArrayList<>();
 
         for (Actor actor : actors) {
-            if (actionInputData.getFilters().get(3) != null) {
+            if (actionInputData.getFilters().get(Constants.THREE) != null) {
                 boolean ok = true;
-                for (String award : actionInputData.getFilters().get(3)) {
-                    // 4 --> awards
+                for (String award : actionInputData.getFilters().get(Constants.THREE)) {
+                    // 3 --> awards
                     if (!(actor.getAwards().containsKey(ActorsAwards.valueOf(award)))) {
                         ok = false;
                         break;
@@ -95,26 +86,18 @@ public final class ActorQuery {
         sortActorsName(awardedActors, actionInputData.getSortType());
 
         if (actionInputData.getSortType().equals(Constants.ASC)) {
-            awardedActors.sort(new Comparator<Actor>() {
-                @Override
-                public int compare(final Actor o1, final Actor o2) {
-                    return o1.getNoAwards() - o2.getNoAwards();
-                }
-            });
+            awardedActors.sort(Comparator.comparingInt(Actor::getNoAwards));
+
         } else {
-            awardedActors.sort(new Comparator<Actor>() {
-                @Override
-                public int compare(final Actor o1, final Actor o2) {
-                    return o2.getNoAwards() - o1.getNoAwards();
-                }
-            });
+            awardedActors.sort((final Actor o1, final Actor o2)
+                    -> o2.getNoAwards() - o1.getNoAwards());
         }
 
         return toString(awardedActors);
     }
 
     private String averageQuery(final ActionInputData actionInputData, final Database database) {
-        int N = actionInputData.getNumber();
+        int number = actionInputData.getNumber();
         ArrayList<Actor> averageActors = new ArrayList<>();
         for (Actor actor : database.getActors()) {
             actor.getAverageGradeActor(database);
@@ -129,7 +112,7 @@ public final class ActorQuery {
         } else {
             averageActors.sort(Comparator.comparingDouble(Actor::getAverageGrade));
         }
-        for (int i = averageActors.size(); i > N; i--) {
+        for (int i = averageActors.size(); i > number; i--) {
             averageActors.remove(i - 1);
         }
 
@@ -137,22 +120,28 @@ public final class ActorQuery {
     }
 
     private String toString(final ArrayList<Actor> awardedActors) {
-        String array = "[";
+        StringBuilder array = new StringBuilder("[");
         for (int i = 0; i < awardedActors.size(); i++) {
             if (i != awardedActors.size() - 1) {
-                array = array + awardedActors.get(i).getName() + ", ";
+                array.append(awardedActors.get(i).getName()).append(", ");
             } else {
-                array = array + awardedActors.get(i).getName();
+                array.append(awardedActors.get(i).getName());
             }
         }
-        array = array + "]";
-        return array;
+        array.append("]");
+        return array.toString();
     }
 
+    /**
+     * Does the specified query for actors
+     * @param actionInputData input of the action
+     * @param database database of actors, users, movies and shows
+     * @return a String Object
+     */
     public String doTheQuery(final ActionInputData actionInputData, final Database database) {
         String message = "Query result: ";
         if (actionInputData.getCriteria().equals(Constants.AWARDS)) {
-            message += awardsQuery(actionInputData, database);
+            message += awardsQuery(actionInputData);
         }
         if (actionInputData.getCriteria().equals((Constants.FILTER_DESCRIPTIONS))) {
             message += descriptionQuery(actionInputData, database);

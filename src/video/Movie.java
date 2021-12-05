@@ -1,52 +1,62 @@
 package video;
 
-import database.Database;
-import fileio.*;
-import user.User;
+
+
+import fileio.MovieInputData;
 
 import java.util.ArrayList;
 
-public class Movie extends Video{
-    final private int duration;
+public class Movie extends Video {
+    private final int duration;
     private ArrayList<Double> ratings = new ArrayList<>();
     private double averageGrade;
 
-    public Movie(MovieInputData movieInput){
+    public Movie(final MovieInputData movieInput) {
         super(movieInput);
         duration = movieInput.getDuration();
     }
 
+    /**
+     * get the ratings given to the movie
+     * @return an ArrayList - ratings of the movies
+     */
     public ArrayList<Double> getRatings() {
         return ratings;
     }
-
-    public void setRatings(ArrayList<Double> ratings) {
-        this.ratings = ratings;
-    }
-
+    /**
+     * get the duration of a movie
+     * @return int - the duration of the movie
+     */
     public int getDuration() {
         return duration;
     }
 
-    public void addRating(double rating){
+    /**
+     * adds rating to the list of ratings of the movie
+     * @param rating rating of the movie
+     */
+    public void addRating(final double rating) {
         ratings.add(rating);
     }
 
+    /**
+     * get the average garde of the movie
+     * @return double - average grade of the movie
+     */
     public double getAverageGrade() {
         return averageGrade;
     }
 
-    public void setAverageGrade(double averageGrade) {
-        this.averageGrade = averageGrade;
-    }
-
-    public void calculateAverageRating(){
+    /**
+     * calculates the average rating of the movie
+     */
+    public void calculateAverageRating() {
         averageGrade = 0;
-        if(!ratings.isEmpty()){
-            for(double i :ratings){
+        if (!ratings.isEmpty()) {
+            for (double i :ratings) {
                 averageGrade += i;
             }
-            averageGrade = averageGrade/ratings.size();
+            averageGrade = averageGrade / ratings.size();
         }
     }
 }

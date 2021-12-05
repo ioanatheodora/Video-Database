@@ -1,10 +1,7 @@
 package user;
 
-import entertainment.Season;
-import fileio.*;
-import video.Video;
+import fileio.UserInputData;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,91 +9,109 @@ import java.util.Map;
 public class User {
     private final String username;
     private Map<String, Integer> history;
-    private String subscriptionType;
+    private final String subscriptionType;
     private ArrayList<String> favoriteVideos;
-    private Map<String, Double> Mratings = new HashMap<>();
-    private Map<String,ArrayList<Double>> serialRating = new HashMap<>();
+    private Map<String, Double> movieRatings = new HashMap<>();
+    private Map<String, ArrayList<Double>> serialRating = new HashMap<>();
     private int ratingsGiven;
 
-    public User(UserInputData inputData){
+    public User(final UserInputData inputData) {
         username = inputData.getUsername();
         history = inputData.getHistory();
         subscriptionType = inputData.getSubscriptionType();
         favoriteVideos = inputData.getFavoriteMovies();
     }
 
+    /**
+     * get the username
+     * @return a String - username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * get the user's history
+     * @return A Map - history
+     */
     public Map<String, Integer> getHistory() {
         return history;
     }
 
+    /**
+     * get the user's subscription type
+     * @return a String - subscription Type
+     */
     public String getSubscriptionType() {
         return subscriptionType;
     }
 
+    /**
+     * get the user's favorite movies
+     * @return an ArrayList - favorite movies
+     */
     public ArrayList<String> getFavoriteMovies() {
         return favoriteVideos;
     }
 
-    public void setHistory(Map<String, Integer> history) {
-        this.history = history;
+    /**
+     * get the user's ratings for movies
+     * @return a Map - ratings of movies
+     */
+    public Map<String, Double> getMovieRatings() {
+        return movieRatings;
     }
 
-    public void setSubscriptionType(String subscriptionType) {
-        this.subscriptionType = subscriptionType;
-    }
-
-    public void setFavoriteMovies(ArrayList<String> favoriteMovies) {
-        this.favoriteVideos = favoriteMovies;
-    }
-
-    public Map<String, Double> getMratings() {
-        return Mratings;
-    }
-
-    public void setMratings(Map<String, Double> mratings) {
-        Mratings = mratings;
-    }
-
+    /**
+     * get the user's ratings for shows
+     * @return a Map - ratings of shows
+     */
     public Map<String, ArrayList<Double>> getSerialRating() {
         return serialRating;
     }
 
-    public void setSerialRating(Map<String, ArrayList<Double>> serialRating) {
-        this.serialRating = serialRating;
-    }
-
+    /**
+     * get the number of ratings the user has given
+     * @return int - number of ratings
+     */
     public int getRatingsGiven() {
         return ratingsGiven;
     }
 
-    public void setRatingsGiven(int ratingsGiven) {
+    /**
+     * set the number of ratings the user has given
+     * @param ratingsGiven the number to be set
+     */
+    public void setRatingsGiven(final int ratingsGiven) {
         this.ratingsGiven = ratingsGiven;
     }
 
-
-    public void initiateRating(String serial, int numberOfSeasons){
-        ArrayList<Double> ratings = new ArrayList<>() ;
-        for(int i = 0; i < numberOfSeasons; i++){
+    /**
+     * The method initiates the ArrayList of ratings of the serial in order to access
+     * a specific season anytime and adds the show to the HashMap
+     * @param serial name of the show
+     * @param numberOfSeasons number of seasons
+     */
+    public void initiateRating(final String serial, final int numberOfSeasons) {
+        ArrayList<Double> ratings = new ArrayList<>();
+        for (int i = 0; i < numberOfSeasons; i++) {
             ratings.add(0d);
         }
         serialRating.put(serial, ratings);
     }
 
-    public void addMovieRating(String movie, double rating){
-        if(Mratings.containsKey(movie)){
-            Mratings.put(movie, rating);
-        }
-    }
-
-    public void addSeasonRating(String serial, int season, double rating){
-        if(serialRating.containsKey(serial)){
-           for(Map.Entry<String, ArrayList<Double>> entry : serialRating.entrySet()){
-               if(entry.getKey().equals(serial))
+    /**
+     * It adds the rating of a season in the specified ArrayList of ratings
+     * @param serial name of the show
+     * @param season number of the season the user rated
+     * @param rating rating of the season
+     */
+    public void addSeasonRating(final String serial, final int season, final double rating) {
+        if (serialRating.containsKey(serial)) {
+           for (Map.Entry<String, ArrayList<Double>> entry : serialRating.entrySet()) {
+               if (entry.getKey().equals(serial)) {
                    entry.getValue().add(season - 1, rating);
+               }
            }
         }
     }
