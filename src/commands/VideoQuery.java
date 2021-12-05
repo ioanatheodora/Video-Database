@@ -5,6 +5,7 @@ import database.Database;
 import fileio.ActionInputData;
 import video.Movie;
 import video.Serial;
+import video.Video;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -95,7 +96,7 @@ public class VideoQuery {
     }
 
     private String favoriteMovieQuery(final ActionInputData actionInputData,
-                                    final Database database, final int number) {
+                                      final Database database, final int number) {
         ArrayList<Movie> favorite = new ArrayList<>();
 
         for (Movie video : database.getMovies()) {
@@ -120,7 +121,7 @@ public class VideoQuery {
     }
 
     private String favoriteShowQuery(final ActionInputData actionInputData,
-                                    final Database database, final int number) {
+                                     final Database database, final int number) {
         ArrayList<Serial> favorite = new ArrayList<>();
 
         for (Serial video : database.getSerials()) {
@@ -145,7 +146,7 @@ public class VideoQuery {
     }
 
     private String longestMovieQuery(final ActionInputData actionInputData,
-                                   final Database database, final int number) {
+                                     final Database database, final int number) {
         ArrayList<Movie> longest = new ArrayList<>();
 
         for (Movie movie : database.getMovies()) {
@@ -170,7 +171,7 @@ public class VideoQuery {
     }
 
     private  String longestShowQuery(final ActionInputData actionInputData,
-                                    final Database database, final int number) {
+                                     final Database database, final int number) {
         ArrayList<Serial> longest = new ArrayList<>();
 
         for (Serial serial : database.getSerials()) {
@@ -194,7 +195,7 @@ public class VideoQuery {
     }
 
     private String mostViewedMovieQuery(final ActionInputData actionInputData,
-                                     final Database database, final int number) {
+                                        final Database database, final int number) {
         ArrayList<Movie> viewed = new ArrayList<>();
 
         for (Movie movie : database.getMovies()) {
@@ -223,13 +224,8 @@ public class VideoQuery {
                                        final Database database, final int number) {
         ArrayList<Serial> viewed = new ArrayList<>();
 
-<<<<<<< HEAD
         for (Serial serial : database.getSerials()) {
             if (checkFilters(serial, actionInputData.getFilters())
-=======
-        for(Serial serial : database.getSerials()){
-            if(checkFilters(serial, actionInputData.getFilters())
->>>>>>> be30c4b7be12ef40ce9c1f0d92b9d017181fc0d0
                     && serial.getViews() != 0) {
                 viewed.add(serial);
             }
@@ -250,10 +246,9 @@ public class VideoQuery {
     }
 
     private String ratingShowQuery(final ActionInputData actionInputData,
-                                      final Database database, final int number) {
+                                   final Database database, final int number) {
         ArrayList<Serial> rating = new ArrayList<>();
 
-<<<<<<< HEAD
         for (Serial serial : database.getSerials()) {
             serial.calculateAverageGrade();
 
@@ -263,16 +258,6 @@ public class VideoQuery {
             }
         }
 
-=======
-        for(Serial serial : database.getSerials()){
-            serial.calculateAverageGrade();
-            if(checkFilters(serial, actionInputData.getFilters())
-                    && serial.getAverageGrade() != 0)
-                rating.add(serial);
-
-        }
-        
->>>>>>> be30c4b7be12ef40ce9c1f0d92b9d017181fc0d0
         sortShowTitle(rating, actionInputData.getSortType());
 
         if (actionInputData.getSortType().equals(Constants.DESC)) {
@@ -289,7 +274,7 @@ public class VideoQuery {
     }
 
     private String ratingMovieQuery(final ActionInputData actionInputData,
-                                       final Database database, final int number) {
+                                    final Database database, final int number) {
         ArrayList<Movie> rating = new ArrayList<>();
 
         for (Movie movie : database.getMovies()) {

@@ -121,7 +121,6 @@ public class Database {
         }
     }
 
-<<<<<<< HEAD
     /**
      * It populates the field views for every movie / show with the number
      * of the times the movie / show has been viewed
@@ -142,24 +141,6 @@ public class Database {
                 if (user.getHistory().containsKey(serial.getTitle())) {
                     serial.setViews(serial.getViews()
                             + user.getHistory().get(serial.getTitle()));
-=======
-    public void getViewsPerVideo(){
-        for(Movie movie : movies){
-            movie.setViews(0);
-            for(User user : users){
-                if(user.getHistory().containsKey(movie.getTitle())){
-                    movie.setViews(movie.getViews() +
-                            user.getHistory().get(movie.getTitle()));
-                }
-            }
-        }
-        for(Serial serial : serials){
-            serial.setViews(0);
-            for(User user : users){
-                if(user.getHistory().containsKey(serial.getTitle())){
-                    serial.setViews(serial.getViews() +
-                            user.getHistory().get(serial.getTitle()));
->>>>>>> be30c4b7be12ef40ce9c1f0d92b9d017181fc0d0
                 }
             }
         }

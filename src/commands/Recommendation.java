@@ -1,6 +1,5 @@
 package commands;
 
-import actor.Actor;
 import common.Constants;
 import database.Database;
 import fileio.ActionInputData;
@@ -49,26 +48,13 @@ public final class Recommendation {
         return temp;
     }
 
-<<<<<<< HEAD
     private static HashMap<String, Double> sortByValueD(final HashMap<String, Double> hm) {
-=======
-    public static HashMap<String, Double> sortByValueD(final HashMap<String, Double> hm) {
->>>>>>> be30c4b7be12ef40ce9c1f0d92b9d017181fc0d0
         // Create a list from elements of HashMap
         List<Map.Entry<String, Double>> list =
                 new LinkedList<>(hm.entrySet());
 
         // Sort the list
-<<<<<<< HEAD
         list.sort(Comparator.comparingDouble(Map.Entry::getValue));
-=======
-        Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
-            public int compare(final Map.Entry<String, Double> o1,
-                               final Map.Entry<String, Double> o2) {
-                return Double.compare(o1.getValue(), o2.getValue());
-            }
-        });
->>>>>>> be30c4b7be12ef40ce9c1f0d92b9d017181fc0d0
 
         // put data from sorted list to hashmap
         HashMap<String, Double> temp = new LinkedHashMap<>();
@@ -100,7 +86,7 @@ public final class Recommendation {
         for (Movie movie : database.getMovies()) {
             movie.calculateAverageRating();
             if (!user.getHistory().containsKey(movie.getTitle())
-                && bestRating < movie.getAverageGrade()) {
+                    && bestRating < movie.getAverageGrade()) {
                 bestRating = movie.getAverageGrade();
                 bestUnseenVideo  = movie.getTitle();
             }
@@ -109,7 +95,7 @@ public final class Recommendation {
         for (Serial serial :  database.getSerials()) {
             serial.calculateAverageGrade();
             if (!user.getHistory().containsKey(serial.getTitle())
-                && bestRating < serial.getAverageGrade()) {
+                    && bestRating < serial.getAverageGrade()) {
                 bestRating = serial.getAverageGrade();
                 bestUnseenVideo = serial.getTitle();
             }
@@ -158,7 +144,7 @@ public final class Recommendation {
         for (Movie movie : database.getMovies()) {
             movie.calculateAverageRating();
             if (!user.getHistory().containsKey(movie.getTitle())
-                && checkFilter(movie, actionInputData.getGenre())) {
+                    && checkFilter(movie, actionInputData.getGenre())) {
                 sortMap.put(movie.getTitle(), movie.getAverageGrade());
             }
         }
@@ -171,33 +157,19 @@ public final class Recommendation {
         }
 
 //        sort the hashmap depending on the name and then on the rating
-<<<<<<< HEAD
         StringBuilder message = new StringBuilder("SearchRecommendation result: [");
         LinkedHashMap<String, Double> sortedByName = new LinkedHashMap<>(sortMap);
-=======
-        String message = "SearchRecommendation result: [";
-        LinkedHashMap<String, Double> sortedByName = new LinkedHashMap<>();
-        sortedByName.putAll(sortMap);
->>>>>>> be30c4b7be12ef40ce9c1f0d92b9d017181fc0d0
         HashMap<String, Double> finalSort;
 
         finalSort = sortByValueD(sortedByName);
         for (Map.Entry<String, Double> entry : finalSort.entrySet()) {
-<<<<<<< HEAD
             message.append(entry.getKey()).append(", ");
-=======
-            message += entry.getKey() + ", ";
->>>>>>> be30c4b7be12ef40ce9c1f0d92b9d017181fc0d0
         }
 
         message = new StringBuilder(message.substring(0, message.length() - 2) + "]");
 
         if (finalSort.size() > 0) {
-<<<<<<< HEAD
             return message.toString();
-=======
-            return message;
->>>>>>> be30c4b7be12ef40ce9c1f0d92b9d017181fc0d0
         } else {
             return "SearchRecommendation cannot be applied!";
 
@@ -210,14 +182,14 @@ public final class Recommendation {
         for (Map.Entry<String, Integer> entry : popular.entrySet()) {
             for (Movie movie : database.getMovies()) {
                 if (!(user.getHistory().containsKey(movie.getTitle()))
-                    && movie.getGenres().contains(entry.getKey())) {
+                        && movie.getGenres().contains(entry.getKey())) {
                     return "PopularRecommendation result: " + movie.getTitle();
                 }
             }
 
             for (Serial serial : database.getSerials()) {
                 if (!(user.getHistory().containsKey(serial.getTitle()))
-                    && serial.getGenres().contains(entry.getKey())) {
+                        && serial.getGenres().contains(entry.getKey())) {
                     return "PopularRecommendation result: " + serial.getTitle();
                 }
             }
@@ -241,7 +213,7 @@ public final class Recommendation {
                     return unseen(find);
                 }
                 if (find.getSubscriptionType().equals(Constants.PREMIUM)
-                    && actionInputData.getType().equals("search")) {
+                        && actionInputData.getType().equals("search")) {
                     return search(find);
                 }
                 if (find.getSubscriptionType().equals(Constants.PREMIUM)

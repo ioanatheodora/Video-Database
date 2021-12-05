@@ -32,12 +32,10 @@ public class View {
                 if (Objects.equals(show.getKey(), video)) {
 //                if viewed, we change the number of times it has been viewed
                     show.setValue(show.getValue() + 1);
-<<<<<<< HEAD
                     message = "success -> " + video
                             + " was viewed with total views of " + show.getValue();
-=======
-                    message = "success -> " + video + " was viewed with total views of " + show.getValue();
->>>>>>> be30c4b7be12ef40ce9c1f0d92b9d017181fc0d0
+                    message = "success -> " + video + " was viewed with total views of "
+                            + show.getValue();
                 }
             }
         } else {
